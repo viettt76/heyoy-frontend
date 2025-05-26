@@ -151,7 +151,7 @@ export default function PostContent({
         callback?: () => void;
     }[][] = userInfo.id === postInfo.creatorInfo.userId ? MENU_MY_POST : MENU_OTHER_POST;
 
-    const { year, month, day, hours, minutes, seconds, milliseconds } = getTimeFromISO(postInfo.createdAt);
+    const { month, day, hours, minutes } = getTimeFromISO(postInfo.createdAt);
 
     return (
         <div className="overflow-auto">

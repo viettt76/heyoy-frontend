@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { AxiosError } from 'axios';
-import { Eye, EyeSlash, UserGear, LockKey, User, UserCircle } from '@phosphor-icons/react';
+import { UserGear, LockKey, User, UserCircle } from '@phosphor-icons/react';
 import { toast } from 'sonner';
 
 const formSchema = z
@@ -91,7 +91,6 @@ export default function ManageUsers() {
     }>();
 
     const [showDialogCreateAccount, setShowDialogCreateAccount] = useState(false);
-    const [isShowPassword, setIsShowPassword] = useState(false);
 
     useEffect(() => {
         (async () => {

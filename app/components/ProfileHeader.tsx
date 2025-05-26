@@ -32,7 +32,6 @@ import {
 import { Button } from '@/components/ui/button';
 import {
     deleteFriendRequestByUserIdService,
-    deleteFriendRequestService,
     sendFriendRequestService,
     unfriendService,
 } from '@/lib/services/relationshipService';
