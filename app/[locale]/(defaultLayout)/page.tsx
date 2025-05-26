@@ -111,7 +111,7 @@ export default function Home() {
         <div className="bg-secondary">
             <div className="flex max-w-[1024px] mx-auto relative gap-x-6 pt-2 max-lg:gap-x-3">
                 <Sidebar />
-                <div className="flex-1 max-md:me-3">
+                <div className="flex-1 max-md:me-3 max-xs:ms-3">
                     <WritePost />
                     <div className="mt-3">
                         {posts.length > 0 ? (

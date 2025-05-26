@@ -123,7 +123,7 @@ export default function WritePost() {
                 </div>
             </div>
             <Modal className="bg-foreground/50" dismissible show={openModal} onClose={() => setOpenModal(false)}>
-                <Modal.Header className="pt-2 pb-0">Write Post</Modal.Header>
+                <Modal.Header className="pt-2 pb-0">Viết bài</Modal.Header>
                 <Modal.Body className="py-2">
                     <div>
                         <Textarea
@@ -173,7 +173,7 @@ export default function WritePost() {
                         className="w-full mt-3"
                         disabled={!postContent.trim() && imagesUpload.length === 0}
                     >
-                        Tạo
+                        Đăng bài
                     </Button>
                 </Modal.Body>
             </Modal>

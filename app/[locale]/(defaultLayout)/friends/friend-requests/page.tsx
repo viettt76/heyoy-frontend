@@ -3,6 +3,7 @@
 import { useSocket } from '@/app/components/SocketProvider';
 import { UserInfoType } from '@/app/dataType';
 import useFetch from '@/hooks/useFetch';
+import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { useAppDispatch } from '@/lib/hooks';
 import {
     acceptFriendRequestService,
@@ -25,12 +26,29 @@ export default function FriendRequests() {
     const dispatch = useAppDispatch();
 
     const [friendRequests, setFriendRequests] = useState<FriendRequestType[]>([]);
-    const [page, setPage] = useState(1);
 
-    const { data, loading } = useFetch(getFriendRequestsService(page));
+    const { data, loading, fetchNext } = useFetch<FriendRequestType>(getFriendRequestsService, {
+        paginated: true,
+    });
+
+    const { observerTarget } = useInfiniteScroll({
+        callback: fetchNext!,
+        threshold: 0.5,
+        loading,
+    });
 
     useEffect(() => {
-        setFriendRequests(data || []);
+        if (data?.length > 0)
+            setFriendRequests((prev) => [
+                ...prev,
+                ...data.map((i) => ({
+                    userId: i.userId,
+                    firstName: i.firstName,
+                    lastName: i.lastName,
+                    avatar: i.avatar,
+                    friendRequestId: i.friendRequestId,
+                })),
+            ]);
     }, [data]);
 
     useEffect(() => {
@@ -88,7 +106,7 @@ export default function FriendRequests() {
     return (
         <>
             {friendRequests.length > 0 ? (
-                <div className="mt-4 grid grid-cols-2 gap-x-10 gap-y-2">
+                <div className="mt-4 grid grid-cols-2 max-sm:grid-cols-1 max-md:pe-3 max-md:gap-x-3 gap-x-10 gap-y-2">
                     {friendRequests.map((friendRequest: FriendRequestType) => {
                         return (
                             <div
@@ -121,6 +139,7 @@ export default function FriendRequests() {
                             </div>
                         );
                     })}
+                    <div ref={observerTarget} className="h-20"></div>
                 </div>
             ) : (
                 <div className="text-center text-primary text-sm mt-4 w-full">Bạn không có lời mời kết bạn nào</div>

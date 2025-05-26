@@ -11,8 +11,8 @@ export default function FriendsLayout({ children }) {
     const friendRequestCount = useAppSelector(selectUserInfo).friendRequestCount;
 
     return (
-        <div className="flex gap-10 max-w-[1024px] mx-auto">
-            <div className="w-1/4">
+        <div className="flex gap-x-10 max-w-[1024px] mx-auto relative">
+            <div className="w-80 bg-background h-fit sticky top-10">
                 <Accordion type="single" defaultValue={pathname.split('/')[1]} collapsible className="w-full">
                     <AccordionItem value="friends">
                         <AccordionTrigger className={`${pathname.includes('/friends') && 'text-primary'}`}>

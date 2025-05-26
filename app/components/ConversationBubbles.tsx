@@ -19,8 +19,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import MessengerPopup from './MessengerPopup';
 import { useSocket } from './SocketProvider';
 import { selectUserInfo } from '@/lib/slices/userSlice';
-import useClickOutside from '@/hooks/useClickOutside';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useOnClickOutside } from 'usehooks-ts';
+import { motion } from 'framer-motion';
 
 const MAX_OPEN_POPUPS = 2;
 
@@ -51,9 +52,11 @@ export default function ConversationBubbles() {
         })();
     }, []);
 
-    const friendListRef = useRef<HTMLDivElement>(null);
+    const friendListRef = useRef<HTMLDivElement>(null!);
 
     const [showFriendList, setShowFriendList] = useState(false);
+    const wasDragged = useRef(false);
+    const dragStartPos = useRef<{ x: number; y: number } | null>(null);
 
     const [openConversationIndexs, setOpenConversationIndexs] = useState<number[]>([]);
 
@@ -97,7 +100,7 @@ export default function ConversationBubbles() {
     const handleShowFriendList = () => setShowFriendList(true);
     const handleHideFriendList = () => setShowFriendList(false);
 
-    useClickOutside(friendListRef, handleHideFriendList);
+    useOnClickOutside(friendListRef, handleHideFriendList);
 
     const handleAddOpenPrivateConversation = async (friendInfo: UserInfoType) => {
         try {
@@ -146,11 +149,42 @@ export default function ConversationBubbles() {
         dispatch(maximizeConversation(conversationId));
     };
 
+    const handleToogleShowFriendList = () => {
+        if (wasDragged.current) {
+            wasDragged.current = false;
+            return;
+        }
+
+        if (showFriendList) handleHideFriendList();
+        else handleShowFriendList();
+    };
+
+    const onMouseDown = (e: React.MouseEvent) => {
+        dragStartPos.current = { x: e.clientX, y: e.clientY };
+        wasDragged.current = false;
+    };
+
+    const onMouseUp = (e: React.MouseEvent) => {
+        if (dragStartPos.current) {
+            const dx = Math.abs(e.clientX - dragStartPos.current.x);
+            const dy = Math.abs(e.clientY - dragStartPos.current.y);
+            if (dx > 3 || dy > 3) {
+                wasDragged.current = true;
+            }
+        }
+    };
+
     return (
-        <div className="fixed top-20 right-2 z-[15]">
+        <motion.div
+            drag
+            dragMomentum={false}
+            className="fixed top-20 right-2 z-[15] cursor-move"
+            onMouseDown={onMouseDown}
+            onMouseUp={onMouseUp}
+        >
             <div
                 className="p-2 bg-white text-black rounded-full border cursor-pointer"
-                onClick={showFriendList ? handleHideFriendList : handleShowFriendList}
+                onClick={handleToogleShowFriendList}
             >
                 {showFriendList ? <Minus /> : <Plus />}
             </div>
@@ -272,6 +306,6 @@ export default function ConversationBubbles() {
                     />
                 );
             })}
-        </div>
+        </motion.div>
     );
 }

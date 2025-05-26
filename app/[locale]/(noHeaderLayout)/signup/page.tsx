@@ -88,11 +88,11 @@ export default function Signup() {
 
     return (
         <div className="h-screen w-screen bg-input flex justify-center items-center">
-            <div className="bg-background w-[44rem] min-h-96 rounded-lg">
+            <div className="bg-background w-[44rem] min-h-96 max-xs:h-[450px] rounded-lg">
                 <div className="flex-1 flex flex-col justify-center items-center relative">
                     <Image className="absolute top-4 left-6" src="/images/logo.png" width={60} height={60} alt="logo" />
                 </div>
-                <div className="flex flex-col justify-center md:min-h-[28rem] sm:min-h-96 min-h-96 translate-y-3">
+                <div className="flex flex-col justify-center min-h-[28rem] translate-y-3">
                     <div className="font-semibold text-2xl text-center text-primary">Signup</div>
                     <Form {...form}>
                         <form
@@ -100,7 +100,7 @@ export default function Signup() {
                             className="w-full space-y-1 flex flex-col items-center"
                             onSubmit={form.handleSubmit(onSubmit)}
                         >
-                            <div className="flex w-full">
+                            <div className="xs:flex w-full">
                                 <div className="flex-1 flex flex-col items-center">
                                     <FormField
                                         control={form.control}

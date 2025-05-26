@@ -61,7 +61,7 @@ export default function ProfileHeader() {
     const { userId } = useParams();
 
     const PROFILE_TABS = [
-        { href: `/profile/${userId ?? ''}`, icon: Newspaper, label: 'Dòng thời gian' },
+        { href: `/profile${userId ? `/${userId}` : ''}`, icon: Newspaper, label: 'Dòng thời gian' },
         { href: `/profile/friends/${userId ?? ''}`, icon: Users, label: 'Bạn bè' },
         { href: `/profile/images/${userId ?? ''}`, icon: ImageSquare, label: 'Ảnh' },
     ];
@@ -338,7 +338,7 @@ export default function ProfileHeader() {
                             <Link
                                 href={tab.href}
                                 className={cn(
-                                    'py-2 px-6 flex items-center cursor-pointer hover:bg-primary rounded-lg hover:text-background',
+                                    'py-2 px-6 max-xs:px-2 flex items-center cursor-pointer hover:bg-primary rounded-lg hover:text-background',
                                     pathname === tab.href && 'bg-primary text-background',
                                 )}
                                 key={`profile-tab-${tab.label}`}

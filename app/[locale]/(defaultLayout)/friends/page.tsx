@@ -33,7 +33,7 @@ export default function Friends() {
     return (
         <>
             {friends.length > 0 ? (
-                <div className="mt-4 grid grid-cols-2 gap-x-10 gap-y-2">
+                <div className="mt-4 grid grid-cols-2 max-sm:grid-cols-1 max-md:pe-3 max-md:gap-x-3 gap-x-10 gap-y-2">
                     {friends.map((friend: UserInfoType) => {
                         return (
                             <div

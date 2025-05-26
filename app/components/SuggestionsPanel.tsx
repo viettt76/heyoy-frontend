@@ -1,20 +1,30 @@
-import { PlusCircle, UserCirclePlus } from '@phosphor-icons/react';
+import { UserCirclePlus } from '@phosphor-icons/react';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { useEffect, useState } from 'react';
 import { UserInfoType } from '@/app/dataType';
 import { getSuggestionsService, sendFriendRequestService } from '@/lib/services/relationshipService';
-import useFetch from '@/hooks/useFetch';
 
 export default function SuggestionsPanel() {
     const [suggestions, setSuggestions] = useState<UserInfoType[]>([]);
-    const [page, setPage] = useState(1);
-
-    const { data, loading } = useFetch(getSuggestionsService(page));
 
     useEffect(() => {
-        setSuggestions(data || []);
-    }, [data]);
+        (async () => {
+            try {
+                const { data } = await getSuggestionsService({ page: 1 });
+                setSuggestions(
+                    data.suggestions.map((i) => ({
+                        userId: i.userId,
+                        firstName: i.firstName,
+                        lastName: i.lastName,
+                        avatar: i.avatar,
+                    })),
+                );
+            } catch (error) {
+                console.error(error);
+            }
+        })();
+    }, []);
 
     const handleSendFriendRequest = async (receiverId: string) => {
         try {

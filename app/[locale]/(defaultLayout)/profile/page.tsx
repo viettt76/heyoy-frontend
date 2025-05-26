@@ -134,8 +134,8 @@ export default function Profile() {
     }, [socket]);
 
     return (
-        <div className="flex gap-10 mt-6">
-            <div className="w-[26rem] bg-background py-2 px-4 h-fit rounded-xl">
+        <div className="flex gap-10 max-xs:gap-4 mt-6 max-xs:flex-col">
+            <div className="w-[26rem] max-xs:w-full bg-background py-2 px-4 h-fit rounded-xl">
                 <div className="font-semibold text-xl">Giới thiệu</div>
                 {userOverview.every((item) => item.value) ? (
                     userOverview.map((item, index) => {

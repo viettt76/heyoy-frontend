@@ -68,15 +68,18 @@ export default function SystemNotification({ className }: { className: string })
     };
 
     return (
-        <div ref={systemNotificationRef} className={cn('relative', className)}>
-            <BellRinging className="text-ring cursor-pointer" onClick={() => setShowNotifications(true)} />
+        <div ref={systemNotificationRef} className="relative">
+            <BellRinging
+                className={cn('text-ring cursor-pointer', className)}
+                onClick={() => setShowNotifications(true)}
+            />
             {notifications.length > 0 && (
                 <div className="absolute -top-2 -right-2 text-background bg-destructive rounded-full text-sm w-4 h-4 flex justify-center items-center">
                     {notifications.length}
                 </div>
             )}
             {showNotifications && (
-                <div className="absolute top-[calc(100%+0.5rem)] right-1/2 translate-x-1/2 bg-white border shadow-all-sides w-80 rounded-lg">
+                <div className="absolute top-[calc(100%+0.5rem)] right-1/2 translate-x-1/4 max-lg:translate-x-[calc(25%-1rem)] bg-white border shadow-all-sides w-80 rounded-lg">
                     <div className="font-semibold p-2 border-b">Thông báo</div>
                     {notifications.length > 0 ? (
                         <div className="flex flex-col">

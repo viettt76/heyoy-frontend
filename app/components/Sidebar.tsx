@@ -1,19 +1,19 @@
 'use client';
 
-import { Film, Newspaper } from 'lucide-react';
+import { Bookmark, Film, Newspaper } from 'lucide-react';
 import { Link } from '@/i18n/routing';
 import { Source } from '@/lib/services/movieService';
 
 const MENU_ITEMS = [
     { href: '/', icon: Newspaper, label: 'Bản tin' },
-    { href: '/saved', icon: Newspaper, label: 'Bài viết đã lưu' },
+    { href: '/saved', icon: Bookmark, label: 'Bài viết đã lưu' },
 ];
 
 const EXPLORE_ITEMS = [{ href: `/movie?source=${Source.OPHIM}`, icon: Film, label: 'Phim' }];
 
 export default function Sidebar() {
     return (
-        <div className="bg-background h-fit sticky top-[72px] px-2 py-2 rounded-lg w-64">
+        <div className="max-xs:hidden bg-background h-fit sticky top-[72px] px-2 py-2 rounded-lg w-64 max-sm:w-48">
             {MENU_ITEMS.map((item) => {
                 const Icon = item.icon;
                 return (

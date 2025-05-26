@@ -8,7 +8,6 @@ import { addNotification, NotificationType } from '@/lib/slices/notificationSlic
 import { addFriendRequestCount } from '@/lib/slices/userSlice';
 import { useRouter } from '@/i18n/routing';
 import { toast } from 'sonner';
-import { clearCallData } from '@/lib/slices/conversationSlice';
 
 const SocketContext = createContext(socket);
 
@@ -20,6 +19,7 @@ export default function SocketProvider({ children }: { children: ReactNode }) {
         socket.connect();
 
         const handleNewFriendRequest = (newFriendRequest) => {
+            console.log(newFriendRequest);
             const { friendRequestId, userId, firstName, lastName, avatar, notificationId, content, createdAt } =
                 newFriendRequest;
             dispatch(addFriendRequestCount());

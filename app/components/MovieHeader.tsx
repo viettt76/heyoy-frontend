@@ -1,25 +1,12 @@
 'use client';
 
-import { BellRinging, CaretDown, Moon, MagnifyingGlass, Sun, UserPlus, SignOut } from '@phosphor-icons/react';
-import { useTheme } from 'next-themes';
+import { MagnifyingGlass } from '@phosphor-icons/react';
 import Image from 'next/image';
 import { Link, useRouter } from '@/i18n/routing';
-import { useAppDispatch } from '@/lib/hooks';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useToast } from '@/hooks/use-toast';
-import { resetInfo } from '@/lib/slices/userSlice';
-import { logoutService } from '@/lib/services/authService';
 import { useEffect, useRef, useState } from 'react';
 import { AlignJustify, ChevronRight } from 'lucide-react';
 import { Drawer } from 'flowbite-react';
-import useDebounce from '@/hooks/useDebounce';
+import useDebounced from '@/hooks/useDebounced';
 import { searchMovieService, Source } from '@/lib/services/movieService';
 import { BaseMovieData } from '@/app/dataType';
 import useClickOutside from '@/hooks/useClickOutside';
@@ -29,9 +16,6 @@ import { useSearchParams } from 'next/navigation';
 import HeaderRight from './HeaderRight';
 
 export default function MovieHeader() {
-    const { theme, setTheme } = useTheme();
-    const dispatch = useAppDispatch();
-    const { toast } = useToast();
     const router = useRouter();
 
     const searchParams = useSearchParams();
@@ -46,8 +30,6 @@ export default function MovieHeader() {
     const parentRef = useRef<HTMLDivElement | null>(null);
     const headerRef = useRef<HTMLDivElement | null>(null);
 
-    const [showUserDashboard, setShowUserDashboard] = useState(false);
-
     const [searchValue, setSearchValue] = useState('');
     const [showSearchResult, setShowSearchResult] = useState(false);
     const [searchResult, setSearchResult] = useState<{
@@ -55,7 +37,7 @@ export default function MovieHeader() {
         totalItems: number;
     }>({ movies: [], totalItems: 0 });
 
-    const keywordSearch = useDebounce(searchValue, 400);
+    const keywordSearch = useDebounced(searchValue, 400);
 
     const searchRef = useRef<HTMLDivElement | null>(null);
 
@@ -79,21 +61,6 @@ export default function MovieHeader() {
             window.removeEventListener('resize', updateSide);
         };
     }, []);
-
-    const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
-
-    const handleLogout = async () => {
-        try {
-            await logoutService();
-            dispatch(resetInfo());
-            router.push('/login');
-        } catch (error) {
-            toast({
-                title: 'Logout fail!',
-            });
-            console.error(error);
-        }
-    };
 
     const handleShowSearchResult = () => setShowSearchResult(true);
     const handleHideSearchResult = () => setShowSearchResult(false);
@@ -124,9 +91,6 @@ export default function MovieHeader() {
     return (
         <div ref={parentRef} className="w-full">
             <div ref={headerRef} className="h-16 bg-[#0a0a0a] shadow-sm fixed top-0 left-0 z-50" style={{ width }}>
-                <div className="absolute top-0 left-5 h-full flex items-center justify-center">
-                    <AlignJustify className="text-white" onClick={handleShowSidebarModal} />
-                </div>
                 {isOpenSidebarModal && (
                     <Drawer
                         open={isOpenSidebarModal}
@@ -220,9 +184,12 @@ export default function MovieHeader() {
                         </Drawer.Items>
                     </Drawer>
                 )}
-                <div className="max-w-[1024px] h-full mx-auto flex items-center gap-x-6">
-                    <div className="w-64 flex items-center gap-x-4">
-                        <AutoLink href="/" className="block w-fit">
+                <div className="w-full px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10 h-full mx-auto flex items-center justify-between gap-x-6 max-md:gap-x-4">
+                    <div className="w-64 max-sm:w-36 max-xs:w-20 flex items-center gap-x-4 max-xs:gap-x-2 justify-start">
+                        <div className="h-full flex items-center justify-center">
+                            <AlignJustify className="text-white" onClick={handleShowSidebarModal} />
+                        </div>
+                        <AutoLink href="/" className="block w-fit max-sm:hidden">
                             <Image src="/images/logo.png" width={50} height={50} alt="logo" />
                         </AutoLink>
                         <AutoLink
@@ -243,7 +210,7 @@ export default function MovieHeader() {
                             }}
                             onFocus={handleShowSearchResult}
                         />
-                        <MagnifyingGlass className="text-black" />
+                        <MagnifyingGlass className="text-black max-sm:hidden" />
                         {searchResult.movies.length > 0 && showSearchResult && (
                             <div
                                 className={`py-1 flex flex-col bg-white rounded-sm shadow-all-sides ${

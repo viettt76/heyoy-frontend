@@ -4,7 +4,7 @@ import { MagnifyingGlass } from '@phosphor-icons/react';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { useEffect, useRef, useState } from 'react';
-import useDebounce from '@/hooks/useDebounce';
+import useDebounced from '@/hooks/useDebounced';
 import { searchService } from '@/lib/services/userService';
 import { UserInfoType } from '@/app/dataType';
 import useClickOutside from '@/hooks/useClickOutside';
@@ -19,7 +19,7 @@ export default function Header() {
     const [showSearchResult, setShowSearchResult] = useState(false);
     const [searchResult, setSearchResult] = useState<UserInfoType[]>([]);
 
-    const keywordDebounced = useDebounce(keyword, 400);
+    const keywordDebounced = useDebounced(keyword, 400);
 
     const searchRef = useRef<HTMLDivElement | null>(null);
     useClickOutside(searchRef, () => setShowSearchResult(false));
@@ -59,8 +59,8 @@ export default function Header() {
     return (
         <div ref={parentRef} className="w-full">
             <div ref={headerRef} className="h-16 bg-background shadow-sm fixed top-0 left-0 z-50" style={{ width }}>
-                <div className="max-w-[1024px] h-full mx-auto flex items-center gap-x-6">
-                    <div className="w-64">
+                <div className="max-w-[1024px] h-full mx-auto flex items-center gap-x-6 max-xs:gap-x-2">
+                    <div className="w-64 max-sm:w-14 max-md:w-20">
                         <Link href="/" className="block w-fit">
                             <Image src="/images/logo.png" width={50} height={50} alt="logo" />
                         </Link>
@@ -76,11 +76,11 @@ export default function Header() {
                             onChange={(e) => setKeyword(e.target.value)}
                             onFocus={handleShowSearchResult}
                         />
-                        <MagnifyingGlass />
+                        <MagnifyingGlass className="max-xs:hidden" />
                         {showSearchResult &&
                             keywordDebounced.length > 0 &&
                             (searchResult.length > 0 ? (
-                                <div className="absolute top-[calc(100%+0.4rem)] left-0 right-0 rounded-lg bg-background p-1 border shadow-all-sides">
+                                <div className="absolute top-[calc(100%+0.4rem)] left-0 right-0 max-lg:min-w-96 max-sm:min-w-60 max-sm:-left-10 rounded-lg bg-background p-1 border shadow-all-sides">
                                     {searchResult.slice(0, 8).map((r, index) => (
                                         <Link
                                             href={`/profile/${r.userId}`}

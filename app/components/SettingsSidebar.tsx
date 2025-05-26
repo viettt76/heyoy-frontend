@@ -13,7 +13,7 @@ export default function SettingsSidebar() {
     const pathname = usePathname();
 
     return (
-        <div className="bg-background h-fit sticky top-[72px] px-2 py-2 rounded-lg w-64 space-y-1">
+        <div className="bg-background h-fit sticky top-[72px] px-2 py-2 rounded-lg w-64 space-y-1 max-xs:flex max-xs:w-full max-xs:space-y-0">
             {MENU_SETTINGS.map((item) => {
                 const Icon = item.icon;
 

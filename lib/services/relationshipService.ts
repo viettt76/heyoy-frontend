@@ -1,14 +1,19 @@
 import axios from './api';
 
-export const getSuggestionsService = (page: number) => {
-    return axios.get(`/relationships/suggestions?page=${page}`);
+export const getSuggestionsService = ({ page, keyword }: { page: number; keyword?: string }) => {
+    return axios.get('/relationships/suggestions', {
+        params: {
+            page,
+            keyword,
+        },
+    });
 };
 
 export const sendFriendRequestService = (receiverId: string) => {
     return axios.post('/relationships/friend-requests', { receiverId });
 };
 
-export const getFriendRequestsService = (page: number) => {
+export const getFriendRequestsService = ({ page }: { page: number }) => {
     return axios.get(`/relationships/friend-requests?page=${page}`);
 };
 
@@ -16,7 +21,7 @@ export const getFriendRequestCountService = () => {
     return axios.get('/relationships/friend-requests/count');
 };
 
-export const getSentFriendRequestsService = (page: number) => {
+export const getSentFriendRequestsService = ({ page }: { page: number }) => {
     return axios.get(`/relationships/sent-requests?page=${page}`);
 };
 

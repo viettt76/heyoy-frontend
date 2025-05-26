@@ -482,7 +482,7 @@ export default function RecentConversations({ className }: { className?: string 
                 </div>
             )}
             {showRecentConversations && (
-                <div className="absolute top-[calc(100%+0.5rem)] -right-10 w-80 bg-background border shadow-all-sides rounded-xl pt-2">
+                <div className="absolute top-[calc(100%+0.5rem)] -right-10 max-xs:-right-20 w-80 bg-background border shadow-all-sides rounded-xl pt-2">
                     {showAddGroup ? (
                         <div className="px-2">
                             <div className="flex justify-between">

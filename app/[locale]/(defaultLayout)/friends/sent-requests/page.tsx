@@ -2,6 +2,7 @@
 
 import { UserInfoType } from '@/app/dataType';
 import useFetch from '@/hooks/useFetch';
+import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { getSentFriendRequestsService, deleteFriendRequestService } from '@/lib/services/relationshipService';
 import { AxiosError } from 'axios';
 import { X } from 'lucide-react';
@@ -15,12 +16,29 @@ type SentFriendRequestType = UserInfoType & {
 
 export default function SentRequests() {
     const [sentFriendRequests, setSentFriendRequests] = useState<SentFriendRequestType[]>([]);
-    const [page, setPage] = useState(1);
 
-    const { data, loading } = useFetch(getSentFriendRequestsService(page));
+    const { data, loading, fetchNext } = useFetch<SentFriendRequestType>(getSentFriendRequestsService, {
+        paginated: true,
+    });
+
+    const { observerTarget } = useInfiniteScroll({
+        callback: fetchNext!,
+        threshold: 0.5,
+        loading,
+    });
 
     useEffect(() => {
-        setSentFriendRequests(data || []);
+        if (data?.length > 0)
+            setSentFriendRequests((prev) => [
+                ...prev,
+                ...data.map((i) => ({
+                    userId: i.userId,
+                    firstName: i.firstName,
+                    lastName: i.lastName,
+                    avatar: i.avatar,
+                    friendRequestId: i.friendRequestId,
+                })),
+            ]);
     }, [data]);
 
     const handleRevokeRequest = async (friendRequestId: string) => {
@@ -44,7 +62,7 @@ export default function SentRequests() {
     return (
         <>
             {sentFriendRequests.length > 0 ? (
-                <div className="mt-4 grid grid-cols-2 gap-x-10 gap-y-2">
+                <div className="mt-4 grid grid-cols-2 max-sm:grid-cols-1 max-md:pe-3 max-md:gap-x-3 gap-x-10 gap-y-2">
                     {sentFriendRequests.map((friendRequest: SentFriendRequestType) => {
                         return (
                             <div
@@ -68,6 +86,7 @@ export default function SentRequests() {
                             </div>
                         );
                     })}
+                    <div ref={observerTarget} className="h-20"></div>
                 </div>
             ) : (
                 <div className="text-center text-primary text-sm mt-4 w-full">Bạn chưa gửi lời mời kết bạn nào</div>

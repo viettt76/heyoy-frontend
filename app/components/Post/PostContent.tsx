@@ -5,7 +5,7 @@ import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { ChatCircle, ChatCircleDots, ThumbsUp } from '@phosphor-icons/react';
 import { useTranslations } from 'next-intl';
 import styles from './Post.module.css';
-import { cn } from '@/lib/utils';
+import { cn, getTimeFromISO, padNumber } from '@/lib/utils';
 import {
     PostInfoType,
     ReactionNameType,
@@ -151,6 +151,8 @@ export default function PostContent({
         callback?: () => void;
     }[][] = userInfo.id === postInfo.creatorInfo.userId ? MENU_MY_POST : MENU_OTHER_POST;
 
+    const { year, month, day, hours, minutes, seconds, milliseconds } = getTimeFromISO(postInfo.createdAt);
+
     return (
         <div className="overflow-auto">
             <div className="flex items-center relative">
@@ -167,7 +169,9 @@ export default function PostContent({
                     <Link className="text-foreground" href={`/profile/${postInfo.creatorInfo.userId}`}>
                         {postInfo.creatorInfo.lastName} {postInfo.creatorInfo.firstName}
                     </Link>
-                    <div className="text-gray text-xs">6 ngày trước</div>
+                    <div className="text-gray text-xs">
+                        {padNumber(day)}/{padNumber(month)} {padNumber(hours)}:{padNumber(minutes)}
+                    </div>
                 </div>
 
                 <DropdownMenu modal={false}>

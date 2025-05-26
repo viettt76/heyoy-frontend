@@ -23,10 +23,10 @@ import {
 
 const formSchema = z.object({
     username: z.string().min(1, {
-        message: 'Please type your username.',
+        message: 'Vui lòng nhập tài khoản',
     }),
     password: z.string().min(1, {
-        message: 'Please type your password',
+        message: 'Vui lòng nhập mật khẩu',
     }),
 });
 
@@ -78,23 +78,23 @@ export default function Login() {
 
     return (
         <div className="h-screen w-screen bg-input flex justify-center items-center">
-            <div className="bg-background w-[40rem] -translate-y-10 flex min-h-96 rounded-lg">
-                <div className="flex-1 flex flex-col justify-center items-center relative">
-                    <Image
-                        className="absolute top-4 left-6"
-                        priority
-                        src="/images/logo.png"
-                        width={60}
-                        height={60}
-                        alt="logo"
-                    />
+            <div className="bg-background w-[40rem] -translate-y-10 flex min-h-96 rounded-lg relative">
+                <Image
+                    className="absolute top-4 left-6"
+                    priority
+                    src="/images/logo.png"
+                    width={60}
+                    height={60}
+                    alt="logo"
+                />
+                <div className="flex-1 flex flex-col justify-center items-center max-xs:hidden">
                     <div className="text-3xl text-center">
                         Welcome to <span className="text-primary">Heyoy</span>
                     </div>
                     <div className="text-xl text-primary/80 text-center">Connection place</div>
                 </div>
                 <div className="flex-1 flex flex-col justify-center -translate-y-4">
-                    <div className="font-semibold text-2xl text-center">Login</div>
+                    <div className="font-semibold text-2xl text-center">Đăng nhập</div>
                     <Form {...form}>
                         <form className="w-full flex flex-col items-center" onSubmit={form.handleSubmit(onSubmit)}>
                             <FormField

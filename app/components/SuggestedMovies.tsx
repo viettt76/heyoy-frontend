@@ -13,7 +13,9 @@ export default function SuggestedMovies({ className, genres }: { className?: str
     useEffect(() => {
         (async () => {
             try {
-                const data = await getMovieListByGenreService(source, genres[0]);
+                const { totalPages } = await getMovieListByGenreService(source, genres[0]);
+                const page = Math.floor(Math.random() * totalPages) + 1;
+                const data = await getMovieListByGenreService(source, genres[0], page);
                 setSuggestedMovies(data.movies);
             } catch (error) {
                 console.error(error);

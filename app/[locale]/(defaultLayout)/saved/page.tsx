@@ -62,9 +62,9 @@ export default function Saved() {
 
     return (
         <div className="bg-secondary min-h-[calc(100vh-4rem)] bg-fixed">
-            <div className="flex max-w-[1024px] mx-auto relative gap-x-6 pt-4 max-lg:gap-x-3">
-                <div className="w-96 text-xl font-semibold">Bài viết đã lưu</div>
-                <div className="flex-1 max-md:me-3">
+            <div className="sm:flex max-w-[1024px] mx-auto relative gap-x-6 pt-4 px-3 max-lg:gap-x-3">
+                <div className="w-96 max-md:w-60 text-xl font-semibold">Bài viết đã lưu</div>
+                <div className="flex-1 max-sm:mt-3">
                     {posts.map((post) => (
                         <Post postInfo={post} key={`post-${post.postId}`} />
                     ))}
