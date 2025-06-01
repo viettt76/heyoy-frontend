@@ -17,8 +17,10 @@ export const rejectPostService = (postId: string) => {
     return axios.patch(`/admin/reject-post/${postId}`);
 };
 
-export const getUsersService = (page: number) => {
-    return axios.get(`/admin/users?page=${page}`);
+export const getUsersService = ({ page, keyword }: { page: number; keyword: string }) => {
+    return axios.get('/admin/users', {
+        params: { page, keyword },
+    });
 };
 
 export const lockUserService = (userId: string) => {

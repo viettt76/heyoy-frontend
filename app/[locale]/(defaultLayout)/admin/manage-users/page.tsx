@@ -16,6 +16,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/component
 import { AxiosError } from 'axios';
 import { UserGear, LockKey, User, UserCircle } from '@phosphor-icons/react';
 import { toast } from 'sonner';
+import useFetch from '@/hooks/useFetch';
 
 const formSchema = z
     .object({
@@ -58,6 +59,15 @@ const formSchema = z
         },
     );
 
+type TUserInfo = {
+    id: string;
+    username: string;
+    lastName: string;
+    firstName: string;
+    role: Role;
+    isActive: boolean;
+};
+
 export default function ManageUsers() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -71,19 +81,25 @@ export default function ManageUsers() {
         },
     });
 
-    const [users, setUsers] = useState<{
-        users: {
-            id: string;
-            username: string;
-            name: string;
-            role: Role;
-            isActive: boolean;
-        }[];
-        totalUsers: number;
-        totalPages: number;
-    }>({ users: [], totalUsers: 0, totalPages: 1 });
+    const [users, setUsers] = useState<TUserInfo[]>([]);
 
-    const [currentPage, setCurrentPage] = useState(1);
+    const { data, page, totalPages, keyword, setKeyword, setPage } = useFetch<TUserInfo>(getUsersService, {
+        paginated: true,
+    });
+
+    useEffect(() => {
+        setUsers(
+            data.map((u) => ({
+                id: u.id,
+                username: u.username,
+                lastName: u.lastName,
+                firstName: u.firstName,
+                role: u.role,
+                isActive: u.isActive,
+            })),
+        );
+    }, [data]);
+
     const [showDialogLockUser, setShowDialogLockUser] = useState(false);
     const [userInfoToLock, setUserInfoToLock] = useState<{
         id: string;
@@ -92,45 +108,15 @@ export default function ManageUsers() {
 
     const [showDialogCreateAccount, setShowDialogCreateAccount] = useState(false);
 
-    useEffect(() => {
-        (async () => {
-            try {
-                const { data } = await getUsersService(currentPage);
-                const { users, totalUsers, totalPages } = data;
-
-                setUsers({
-                    users: users.map((u) => ({
-                        id: u.id,
-                        username: u.username,
-                        name: `${u.lastName} ${u.firstName}`,
-                        role: u.role,
-                        isActive: u.isActive,
-                    })),
-                    totalUsers,
-                    totalPages,
-                });
-            } catch (error) {
-                console.error(error);
-            }
-        })();
-    }, [currentPage]);
-
-    const onPageChange = (page: number) => setCurrentPage(page);
-
     const handleLockUser = async (userId: string) => {
         try {
             await lockUserService(userId);
-            setUsers((prev) => ({
-                ...prev,
-                users: prev.users.map((u) => {
-                    if (u.id === userId)
-                        return {
-                            ...u,
-                            isActive: false,
-                        };
-                    return u;
-                }),
-            }));
+            setUsers((prev) =>
+                prev.map((u) => ({
+                    ...u,
+                    isActive: u.id === userId ? false : u.isActive,
+                })),
+            );
             setShowDialogLockUser(false);
         } catch (error) {
             console.error(error);
@@ -140,17 +126,12 @@ export default function ManageUsers() {
     const handleUnlockUser = async (userId: string) => {
         try {
             await unlockUserService(userId);
-            setUsers((prev) => ({
-                ...prev,
-                users: prev.users.map((u) => {
-                    if (u.id === userId)
-                        return {
-                            ...u,
-                            isActive: true,
-                        };
-                    return u;
-                }),
-            }));
+            setUsers((prev) =>
+                prev.map((u) => ({
+                    ...u,
+                    isActive: u.id === userId ? true : u.isActive,
+                })),
+            );
         } catch (error) {
             console.error(error);
         }
@@ -175,7 +156,13 @@ export default function ManageUsers() {
 
     return (
         <div className="overflow-x-auto">
-            <div className="flex justify-end">
+            <div className="flex justify-between gap-x-20">
+                <input
+                    className="outline-none px-3 py-1 rounded-2xl flex-1"
+                    value={keyword}
+                    placeholder="Tìm kiếm tên người dùng"
+                    onChange={(e) => setKeyword(e.target.value)}
+                />
                 <Dialog open={showDialogCreateAccount} onOpenChange={setShowDialogCreateAccount}>
                     <DialogTrigger asChild>
                         <Button>Tạo tài khoản</Button>
@@ -344,13 +331,15 @@ export default function ManageUsers() {
                     <TableHeadCell></TableHeadCell>
                 </TableHead>
                 <TableBody className="divide-y">
-                    {users.users.map((u) => (
+                    {users.map((u) => (
                         <TableRow
                             className={`${u.role === Role.ADMIN ? 'bg-primary/50' : 'bg-background'}`}
                             key={`user-${u.id}`}
                         >
                             <TableCell className="!table-cell line-clamp-1 break-all">{u.username}</TableCell>
-                            <TableCell>{u.name}</TableCell>
+                            <TableCell>
+                                {u.lastName} {u.firstName}
+                            </TableCell>
                             <TableCell>{u.role}</TableCell>
                             <TableCell>
                                 <Checkbox checked={u.isActive} />
@@ -362,7 +351,7 @@ export default function ManageUsers() {
                                         onClick={() => {
                                             setUserInfoToLock({
                                                 id: u.id,
-                                                name: u.name,
+                                                name: `${u.lastName} ${u.firstName}`,
                                             });
                                             setShowDialogLockUser(true);
                                         }}
@@ -401,7 +390,7 @@ export default function ManageUsers() {
                 </TableBody>
             </Table>
             <div className="flex overflow-x-auto sm:justify-center">
-                <Pagination currentPage={currentPage} totalPages={users.totalPages} onPageChange={onPageChange} />
+                <Pagination currentPage={page!} totalPages={totalPages!} onPageChange={setPage!} />
             </div>
         </div>
     );

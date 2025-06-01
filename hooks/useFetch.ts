@@ -47,7 +47,7 @@ export default function useFetch<T>(fetchFunction: FetchFunction<T>, options: Us
 
             setData(list);
 
-            setTotalPages(Math.ceil(res.data.totalPages));
+            setTotalPages(res.data.totalPages);
         } catch (err: any) {
             setError(err);
         } finally {
@@ -75,17 +75,13 @@ export default function useFetch<T>(fetchFunction: FetchFunction<T>, options: Us
         fetchData();
     };
 
-    const updateKeyword = (newKeyword: string) => {
-        setKeyword(newKeyword);
-    };
-
     return {
         data,
         loading,
         error,
         refetch,
         keyword,
-        setKeyword: updateKeyword,
+        setKeyword,
         debouncedKeyword,
         ...(paginated && {
             page,
