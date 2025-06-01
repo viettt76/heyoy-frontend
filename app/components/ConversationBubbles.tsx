@@ -175,11 +175,11 @@ export default function ConversationBubbles() {
     };
 
     return (
-        <div className="fixed top-32 right-2 z-[15]">
+        <div className="fixed top-32 right-2 z-[60]">
             <motion.div
                 drag
                 dragMomentum={false}
-                className="p-2 fixed top-20 right-2 z-[20] bg-white text-black rounded-full border cursor-move"
+                className="p-2 fixed top-20 right-2 z-[60] bg-white text-black rounded-full border cursor-move"
                 onMouseDown={onMouseDown}
                 onMouseUp={onMouseUp}
                 onClick={handleToogleShowFriendList}
