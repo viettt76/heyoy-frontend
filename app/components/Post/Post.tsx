@@ -1,7 +1,7 @@
 'use client';
 
 import { CommentType, PostInfoType, ReactionNameType, PostReactionType } from '@/app/dataType';
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import PostContent from './PostContent';
 import { Modal } from 'flowbite-react';
 import Image from 'next/image';
@@ -16,6 +16,7 @@ import Comment from '@/app/components/Post/Comment';
 import { useAppSelector } from '@/lib/hooks';
 import { selectUserInfo } from '@/lib/slices/userSlice';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
+import { useOnClickOutside } from 'usehooks-ts';
 
 export default function Post({ postInfo }: { postInfo: PostInfoType }) {
     const t = useTranslations();
@@ -36,6 +37,8 @@ export default function Post({ postInfo }: { postInfo: PostInfoType }) {
     const [mostReactions, setMostReactions] = useState<ReactionNameType[]>([]);
     const [currentReaction, setCurrentReaction] = useState<ReactionNameType | null>(null);
     const [commentsCount, setCommentsCount] = useState<number>(0);
+
+    const modalPostRef = useRef<HTMLDivElement>(null!);
 
     // Set most reactions when reactions of post change
     useEffect(() => {
@@ -231,6 +234,8 @@ export default function Post({ postInfo }: { postInfo: PostInfoType }) {
         setComments([]);
     };
 
+    useOnClickOutside(modalPostRef!, handleHideDialogPost);
+
     const handleChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => {
         setContentWriteComment(e.target.value);
     }, []);
@@ -280,7 +285,13 @@ export default function Post({ postInfo }: { postInfo: PostInfoType }) {
                 setCurrentReaction={setCurrentReaction}
                 handleShowDialogPost={handleShowDialogPost}
             />
-            <Modal className="bg-foreground/50" dismissible show={isShowPostDialog} onClose={handleHideDialogPost}>
+            <Modal
+                ref={modalPostRef}
+                className="bg-foreground/50"
+                dismissible
+                show={isShowPostDialog}
+                onClose={handleHideDialogPost}
+            >
                 <Modal.Body className="p-4">
                     <PostContent
                         postInfo={postInfo}

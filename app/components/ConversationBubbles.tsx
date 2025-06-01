@@ -175,88 +175,87 @@ export default function ConversationBubbles() {
     };
 
     return (
-        <motion.div
-            drag
-            dragMomentum={false}
-            className="fixed top-20 right-2 z-[15] cursor-move"
-            onMouseDown={onMouseDown}
-            onMouseUp={onMouseUp}
-        >
-            <div
-                className="p-2 bg-white text-black rounded-full border cursor-pointer"
+        <div className="fixed top-32 right-2 z-[15]">
+            <motion.div
+                drag
+                dragMomentum={false}
+                className="p-2 fixed top-20 right-2 z-[20] bg-white text-black rounded-full border cursor-move"
+                onMouseDown={onMouseDown}
+                onMouseUp={onMouseUp}
                 onClick={handleToogleShowFriendList}
             >
                 {showFriendList ? <Minus /> : <Plus />}
-            </div>
-            {showFriendList && (
-                <div
-                    ref={friendListRef}
-                    className="z-[15] absolute top-12 right-0 bg-background border w-52 max-h-[26rem] overflow-y-auto p-2 rounded-xl shadow-md cursor-pointer"
-                >
-                    <Tabs defaultValue="friends" className="w-full">
-                        <TabsList className="grid w-full grid-cols-2">
-                            <TabsTrigger value="friends">Friends</TabsTrigger>
-                            <TabsTrigger value="groups">Groups</TabsTrigger>
-                        </TabsList>
-                        <TabsContent value="friends">
-                            <div className="flex flex-col gap-y-2">
-                                {friends.length > 0 ? (
-                                    friends.map((friend) => {
-                                        return (
-                                            <div
-                                                className="flex items-center"
-                                                key={`conversation-${friend.userId}`}
-                                                onClick={() => handleAddOpenPrivateConversation(friend)}
-                                            >
-                                                <Image
-                                                    className="rounded-full border w-8 h-8 object-cover border"
-                                                    src={friend.avatar || '/images/default-avatar.png'}
-                                                    alt="avatar"
-                                                    width={800}
-                                                    height={800}
-                                                />
-                                                <div className="ms-1 text-sm font-semibold flex-1 line-clamp-1 break-all">
-                                                    {friend.lastName} {friend.firstName}
+                {showFriendList && (
+                    <div
+                        ref={friendListRef}
+                        className="z-[20] absolute top-12 right-0 bg-background border w-52 max-h-[26rem] overflow-y-auto p-2 rounded-xl shadow-md cursor-pointer"
+                    >
+                        <Tabs defaultValue="friends" className="w-full">
+                            <TabsList className="grid w-full grid-cols-2">
+                                <TabsTrigger value="friends">Friends</TabsTrigger>
+                                <TabsTrigger value="groups">Groups</TabsTrigger>
+                            </TabsList>
+                            <TabsContent value="friends">
+                                <div className="flex flex-col gap-y-2">
+                                    {friends.length > 0 ? (
+                                        friends.map((friend) => {
+                                            return (
+                                                <div
+                                                    className="flex items-center"
+                                                    key={`conversation-${friend.userId}`}
+                                                    onClick={() => handleAddOpenPrivateConversation(friend)}
+                                                >
+                                                    <Image
+                                                        className="rounded-full border w-8 h-8 object-cover border"
+                                                        src={friend.avatar || '/images/default-avatar.png'}
+                                                        alt="avatar"
+                                                        width={800}
+                                                        height={800}
+                                                    />
+                                                    <div className="ms-1 text-sm font-semibold flex-1 line-clamp-1 break-all">
+                                                        {friend.lastName} {friend.firstName}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        );
-                                    })
-                                ) : (
-                                    <div className="text-center text-sm font-semibold">Không có bạn</div>
-                                )}
-                            </div>
-                        </TabsContent>
-                        <TabsContent value="groups">
-                            <div className="flex flex-col gap-y-2">
-                                {groups.length > 0 ? (
-                                    groups.map((group) => {
-                                        return (
-                                            <div
-                                                className="flex items-center"
-                                                key={`conversation-${group.conversationId}`}
-                                                onClick={() => handleAddOpenGroupConversation(group)}
-                                            >
-                                                <Image
-                                                    className="rounded-full border w-8 h-8 object-cover border"
-                                                    src={group.avatar || '/images/default-avatar.png'}
-                                                    alt="avatar"
-                                                    width={800}
-                                                    height={800}
-                                                />
-                                                <div className="ms-1 text-sm font-semibold flex-1 line-clamp-1 break-all">
-                                                    {group.name}
+                                            );
+                                        })
+                                    ) : (
+                                        <div className="text-center text-sm font-semibold">Không có bạn</div>
+                                    )}
+                                </div>
+                            </TabsContent>
+                            <TabsContent value="groups">
+                                <div className="flex flex-col gap-y-2">
+                                    {groups.length > 0 ? (
+                                        groups.map((group) => {
+                                            return (
+                                                <div
+                                                    className="flex items-center"
+                                                    key={`conversation-${group.conversationId}`}
+                                                    onClick={() => handleAddOpenGroupConversation(group)}
+                                                >
+                                                    <Image
+                                                        className="rounded-full border w-8 h-8 object-cover border"
+                                                        src={group.avatar || '/images/default-avatar.png'}
+                                                        alt="avatar"
+                                                        width={800}
+                                                        height={800}
+                                                    />
+                                                    <div className="ms-1 text-sm font-semibold flex-1 line-clamp-1 break-all">
+                                                        {group.name}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        );
-                                    })
-                                ) : (
-                                    <div className="text-center text-sm font-semibold">Không có nhóm</div>
-                                )}
-                            </div>
-                        </TabsContent>
-                    </Tabs>
-                </div>
-            )}
+                                            );
+                                        })
+                                    ) : (
+                                        <div className="text-center text-sm font-semibold">Không có nhóm</div>
+                                    )}
+                                </div>
+                            </TabsContent>
+                        </Tabs>
+                    </div>
+                )}
+            </motion.div>
+
             {openConversations.map((conversation) => {
                 return (
                     <div className="mt-2" key={`conversation-${conversation.conversationId || conversation.friendId}`}>
@@ -306,6 +305,6 @@ export default function ConversationBubbles() {
                     />
                 );
             })}
-        </motion.div>
+        </div>
     );
 }

@@ -155,10 +155,10 @@ export default function PostContent({
 
     return (
         <div className="overflow-auto">
-            <div className="flex items-center relative">
-                <Link href={`/profile/${postInfo.creatorInfo.userId}`}>
+            <div className="flex items-center gap-x-2 relative">
+                <Link href={`/profile/${postInfo.creatorInfo.userId}`} className="rounded-full" tabIndex={-1}>
                     <Image
-                        className="rounded-full w-10 h-10 me-2 border"
+                        className="rounded-full w-10 h-10 border"
                         src="/images/default-avatar.png"
                         alt="avatar"
                         width={800}
@@ -166,7 +166,7 @@ export default function PostContent({
                     />
                 </Link>
                 <div>
-                    <Link className="text-foreground" href={`/profile/${postInfo.creatorInfo.userId}`}>
+                    <Link className="text-foreground" href={`/profile/${postInfo.creatorInfo.userId}`} tabIndex={-1}>
                         {postInfo.creatorInfo.lastName} {postInfo.creatorInfo.firstName}
                     </Link>
                     <div className="text-gray text-xs">
