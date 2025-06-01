@@ -111,12 +111,6 @@ function MyVideoConference({ userId }) {
                         ref={screenRef}
                         onDoubleClick={handleToggleFullscreen}
                     />
-                    <button
-                        onClick={handleToggleFullscreen}
-                        className="absolute top-4 right-4 z-50 bg-white text-black px-3 py-1 rounded"
-                    >
-                        Thoát full màn hình
-                    </button>
                 </div>
             )}
             {!isScreenFull && (
