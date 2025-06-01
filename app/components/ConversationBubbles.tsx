@@ -175,11 +175,11 @@ export default function ConversationBubbles() {
     };
 
     return (
-        <div className="fixed top-32 right-2 z-[60]">
+        <>
             <motion.div
                 drag
                 dragMomentum={false}
-                className="p-2 fixed top-20 right-2 z-[60] bg-white text-black rounded-full border cursor-move"
+                className="p-2 fixed top-20 right-2 z-[100] bg-white text-black rounded-full border cursor-move"
                 onMouseDown={onMouseDown}
                 onMouseUp={onMouseUp}
                 onClick={handleToogleShowFriendList}
@@ -188,7 +188,7 @@ export default function ConversationBubbles() {
                 {showFriendList && (
                     <div
                         ref={friendListRef}
-                        className="z-[20] absolute top-12 right-0 bg-background border w-52 max-h-[26rem] overflow-y-auto p-2 rounded-xl shadow-md cursor-pointer"
+                        className="absolute top-12 right-0 bg-background border w-52 max-h-[26rem] overflow-y-auto p-2 rounded-xl shadow-md cursor-pointer"
                     >
                         <Tabs defaultValue="friends" className="w-full">
                             <TabsList className="grid w-full grid-cols-2">
@@ -256,38 +256,43 @@ export default function ConversationBubbles() {
                 )}
             </motion.div>
 
-            {openConversations.map((conversation) => {
-                return (
-                    <div className="mt-2" key={`conversation-${conversation.conversationId || conversation.friendId}`}>
-                        <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <div className="relative">
-                                        <Image
-                                            className="rounded-full border w-10 h-10 object-cover"
-                                            src={conversation.avatar || '/images/default-avatar.png'}
-                                            alt="avatar"
-                                            width={800}
-                                            height={800}
-                                            onClick={() =>
-                                                handleOpenPopup(
-                                                    conversation.conversationId || conversation.friendId || '',
-                                                )
-                                            }
-                                        />
-                                        {conversation.unreadCount > 0 && (
-                                            <div className="absolute -bottom-1 right-0 text-white text-xs bg-red-400 rounded-full w-4 h-4 flex items-center justify-center">
-                                                {conversation.unreadCount}
-                                            </div>
-                                        )}
-                                    </div>
-                                </TooltipTrigger>
-                                <TooltipContent>{conversation.name}</TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
-                    </div>
-                );
-            })}
+            <div className="fixed top-32 right-2 z-[60]">
+                {openConversations.map((conversation) => {
+                    return (
+                        <div
+                            className="mt-2"
+                            key={`conversation-${conversation.conversationId || conversation.friendId}`}
+                        >
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <div className="relative">
+                                            <Image
+                                                className="rounded-full border w-10 h-10 object-cover"
+                                                src={conversation.avatar || '/images/default-avatar.png'}
+                                                alt="avatar"
+                                                width={800}
+                                                height={800}
+                                                onClick={() =>
+                                                    handleOpenPopup(
+                                                        conversation.conversationId || conversation.friendId || '',
+                                                    )
+                                                }
+                                            />
+                                            {conversation.unreadCount > 0 && (
+                                                <div className="absolute -bottom-1 right-0 text-white text-xs bg-red-400 rounded-full w-4 h-4 flex items-center justify-center">
+                                                    {conversation.unreadCount}
+                                                </div>
+                                            )}
+                                        </div>
+                                    </TooltipTrigger>
+                                    <TooltipContent>{conversation.name}</TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                        </div>
+                    );
+                })}
+            </div>
             {openConversations.map((conversation, index) => {
                 const key = `conversation-${conversation.conversationId || conversation.friendId}`;
                 return (
@@ -305,6 +310,6 @@ export default function ConversationBubbles() {
                     />
                 );
             })}
-        </div>
+        </>
     );
 }
