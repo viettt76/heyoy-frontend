@@ -36,7 +36,7 @@ export default function SuggestionsPanel() {
     };
 
     return (
-        <div className="w-64 sticky top-[72px] h-screen overflow-auto max-md:hidden">
+        <div className="w-64 sticky top-[72px] h-fit overflow-auto max-md:hidden">
             <div className="bg-background rounded-xl py-2 px-2">
                 <div className="flex justify-between items-center">
                     <div className="text-sm">Bạn bè được đề xuất</div>

@@ -2,51 +2,42 @@
 
 import DeletedPostManagement from '@/app/components/DeletedPostManagement';
 import { PostManagementType } from '@/app/dataType';
+import useFetch from '@/hooks/useFetch';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { getDeletedPostsService, recoverPostService } from '@/lib/services/postService';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 export default function DeletedPosts() {
+    const { data, loading, fetchNext } = useFetch(getDeletedPostsService, {
+        paginated: true,
+    });
     const [posts, setPosts] = useState<PostManagementType[]>([]);
-
-    const [loading, setLoading] = useState(false);
-
-    const [page, setPage] = useState(1);
 
     // Hook for infinite scrolling: Calls `increasePage` when the user scrolls near the bottom
     const { observerTarget } = useInfiniteScroll({
-        callback: () => setPage((prev) => prev + 1),
+        callback: fetchNext!,
         threshold: 0.5,
         loading,
     });
 
     // Get more posts when change page
     useEffect(() => {
-        (async () => {
-            setLoading(true);
-            try {
-                const res = await getDeletedPostsService(page);
-                if (res.data.length > 0) {
-                    setPosts((prev) => [
-                        ...prev,
-                        ...res.data
-                            .filter((post: any) => !prev.find((p) => p.postId === post.postId))
-                            .map((post: any) => ({
-                                postId: post.postId,
-                                creatorInfo: post.posterInfo,
-                                content: post.content,
-                                images: post.images.map((image: any) => image.imageUrl),
-                                createdAt: post.createdAt,
-                            })),
-                    ]);
-                    setLoading(false);
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        })();
-    }, [page]);
+        if (data?.length > 0) {
+            setPosts((prev) => [
+                ...prev,
+                ...data
+                    .filter((post: any) => !prev.find((p) => p.postId === post.postId))
+                    .map((post: any) => ({
+                        postId: post.postId,
+                        creatorInfo: post.posterInfo,
+                        content: post.content,
+                        images: post.images.map((image: any) => image.imageUrl),
+                        createdAt: post.createdAt,
+                    })),
+            ]);
+        }
+    }, [data]);
 
     const handleRecoverPost = async (postId: string) => {
         try {

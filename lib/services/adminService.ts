@@ -1,11 +1,11 @@
 import { Role } from '../slices/userSlice';
 import axios from './api';
 
-export const getPostsNotCensoredService = (page: number) => {
+export const getPostsNotCensoredService = ({ page }: { page: number }) => {
     return axios.get(`/admin/posts-not-censored?page=${page}`);
 };
 
-export const getRejectedPostsService = (page: number) => {
+export const getRejectedPostsService = ({ page }: { page: number }) => {
     return axios.get(`/admin/rejected-posts?page=${page}`);
 };
 

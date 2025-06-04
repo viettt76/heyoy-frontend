@@ -115,7 +115,7 @@ export const deletePostService = (postId: string) => {
     return axios.delete(`/posts/${postId}`);
 };
 
-export const getDeletedPostsService = (page: number) => {
+export const getDeletedPostsService = ({ page }: { page: number }) => {
     return axios.get(`/posts/deleted?page=${page}`);
 };
 
@@ -123,6 +123,6 @@ export const recoverPostService = (postId: string) => {
     return axios.patch(`/posts/recover/${postId}`);
 };
 
-export const getBookmarkPostsService = (page: number) => {
+export const getBookmarkPostsService = ({ page }: { page: number }) => {
     return axios.get(`/posts/bookmark?page=${page}`);
 };

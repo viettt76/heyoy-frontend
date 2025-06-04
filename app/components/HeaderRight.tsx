@@ -21,7 +21,13 @@ import RecentConversations from './RecentConversations';
 import SystemNotification from './SystemNotification';
 import { toast } from 'sonner';
 import { BadgeCheck, Bookmark, Film, Newspaper } from 'lucide-react';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+    AlertDialog,
+    AlertDialogContent,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Source } from '@/lib/services/movieService';
 
@@ -155,21 +161,21 @@ export default function HeaderRight({ isDarkMode }: { isDarkMode?: boolean }) {
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-            <Dialog open={showConfirmLogout} onOpenChange={setShowConfirmLogout}>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>Bạn có chắc muốn đăng xuất</DialogTitle>
-                    </DialogHeader>
-                    <DialogFooter>
+            <AlertDialog open={showConfirmLogout} onOpenChange={setShowConfirmLogout}>
+                <AlertDialogContent className="sm:max-w-[425px]">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Bạn có chắc muốn đăng xuất</AlertDialogTitle>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
                         <Button variant="ghost" onClick={() => setShowConfirmLogout(false)}>
                             Huỷ
                         </Button>
                         <Button variant="destructive" onClick={handleLogout}>
                             Đăng xuất
                         </Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
             {/* <button
                 onClick={toggleTheme}
                 className="relative w-12 h-6 bg-muted rounded-full transition-all duration-300 flex items-center justify-between px-1"

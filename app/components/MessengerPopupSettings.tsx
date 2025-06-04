@@ -13,7 +13,13 @@ import { selectFriends } from '@/lib/slices/relationshipSlice';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DrilldownMenuContent, DrilldownMenuItem, DrilldownMenuProvider, DrilldownMenuTrigger } from './DrilldownMenu';
 import { Link } from '@/i18n/routing';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import {
+    AlertDialog,
+    AlertDialogContent,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 
 type GroupMemberType = UserInfoType & {
@@ -249,18 +255,18 @@ export default function MessengerPopupSettings({
                 </DrilldownMenuContent>
             )}
 
-            <Dialog open={showDialogOutGroup} onOpenChange={setShowDialogOutGroup}>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle>Bạn có chắc chắn muốn rời nhóm không</DialogTitle>
-                    </DialogHeader>
-                    <DialogFooter>
+            <AlertDialog open={showDialogOutGroup} onOpenChange={setShowDialogOutGroup}>
+                <AlertDialogContent className="sm:max-w-[425px]">
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Bạn có chắc chắn muốn rời nhóm không</AlertDialogTitle>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
                         <Button variant="destructive" onClick={handleOutGroup}>
                             Rời nhóm
                         </Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
         </DrilldownMenuProvider>
     );
 }

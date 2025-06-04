@@ -10,6 +10,7 @@ import { Link } from '@/i18n/routing';
 import { useEffect, useState } from 'react';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { useSocket } from '@/app/components/SocketProvider';
+import { Spinner } from 'flowbite-react';
 
 export default function Home() {
     const socket = useSocket();
@@ -129,15 +130,17 @@ export default function Home() {
                                 )}
                                 <div ref={observerTarget} className="h-20"></div>
                             </>
+                        ) : loading ? (
+                            <div className="text-center text-primary">
+                                <Spinner />
+                            </div>
                         ) : (
-                            !loading && (
-                                <Link
-                                    href="/friends/suggestions"
-                                    className="text-sm text-primary block text-center underline"
-                                >
-                                    Hãy kết bạn thêm để xem nhiều bài viết hơn
-                                </Link>
-                            )
+                            <Link
+                                href="/friends/suggestions"
+                                className="text-sm text-primary block text-center underline"
+                            >
+                                Hãy kết bạn thêm để xem nhiều bài viết hơn
+                            </Link>
                         )}
                     </div>
                 </div>

@@ -5,7 +5,7 @@ import { ImageSquare, Newspaper, Users } from '@phosphor-icons/react';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Check, Ellipsis, Pencil, Trash2, UserX } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { selectUserInfo, setInfo } from '@/lib/slices/userSlice';
+import { minusFriendRequestCount, selectUserInfo, setInfo } from '@/lib/slices/userSlice';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -70,7 +70,7 @@ export default function ProfileHeader() {
     const friends = useAppSelector(selectFriends);
 
     const [userInfo, setUserInfo] = useState<UserInfoType>();
-    const [isSentFriendRequest, setIsSentFriendRequest] = useState(false);
+    const [friendRequestType, setFriendRequestType] = useState('');
 
     const [updateAvatar, setUpdateAvatar] = useState<string>('');
     const [showModalUpdateAvatar, setShowModalUpdateAvatar] = useState(false);
@@ -95,7 +95,7 @@ export default function ProfileHeader() {
                     avatar: data.avatar,
                     isPrivate: data.isPrivate,
                 });
-                setIsSentFriendRequest(data.relationship === 'FRIEND_REQUEST');
+                setFriendRequestType(data.relationship);
             })();
         }
     }, [userId, currentUserInfo]);
@@ -148,7 +148,7 @@ export default function ProfileHeader() {
         try {
             if (typeof userId === 'string') {
                 await sendFriendRequestService(userId);
-                setIsSentFriendRequest(true);
+                setFriendRequestType('FRIEND_REQUEST_AS_SENDER');
             }
         } catch (error) {
             console.error(error);
@@ -171,11 +171,27 @@ export default function ProfileHeader() {
         try {
             if (typeof userId === 'string') {
                 await deleteFriendRequestByUserIdService(userId);
-                setIsSentFriendRequest(false);
+                setFriendRequestType('');
             }
         } catch (error) {
-            if (error instanceof AxiosError && error.status === 404) {
+            if (error instanceof AxiosError) {
                 toast.info(error.response?.data.message, {
+                    duration: 2500,
+                });
+            }
+            console.error(error);
+        }
+    };
+
+    const handleRefuseFriendRequest = async () => {
+        try {
+            if (typeof userId === 'string') {
+                dispatch(minusFriendRequestCount());
+                await deleteFriendRequestByUserIdService(userId);
+            }
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                toast.error(error.response?.data.message, {
                     duration: 2500,
                 });
             }
@@ -257,9 +273,13 @@ export default function ProfileHeader() {
                                             </DialogContent>
                                         </Dialog>
                                     </>
-                                ) : isSentFriendRequest ? (
+                                ) : friendRequestType === 'FRIEND_REQUEST_AS_SENDER' ? (
                                     <Button variant="destructive" onClick={handleRevokeRequest}>
                                         Huỷ lời mời
+                                    </Button>
+                                ) : friendRequestType === 'FRIEND_REQUEST_AS_RECEIVER' ? (
+                                    <Button variant="destructive" onClick={handleRefuseFriendRequest}>
+                                        Từ chối
                                     </Button>
                                 ) : (
                                     <Button className="bg-blue-600 hover:bg-blue-70" onClick={handleSendFriendRequest}>
