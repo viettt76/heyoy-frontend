@@ -292,6 +292,7 @@ export default function Post({ postInfo }: { postInfo: PostInfoType }) {
                 show={isShowPostDialog}
                 onClose={handleHideDialogPost}
             >
+                <Modal.Header className="py-1"></Modal.Header>
                 <Modal.Body className="p-4">
                     <PostContent
                         postInfo={postInfo}
