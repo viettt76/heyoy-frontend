@@ -109,7 +109,7 @@ export default function Home() {
     }, [socket]);
 
     return (
-        <div className="bg-secondary">
+        <div className="bg-secondary min-h-full">
             <div className="flex max-w-[1024px] mx-auto relative gap-x-6 pt-2 max-lg:gap-x-3">
                 <Sidebar />
                 <div className="flex-1 max-md:me-3 max-xs:ms-3">
@@ -130,10 +130,6 @@ export default function Home() {
                                 )}
                                 <div ref={observerTarget} className="h-20"></div>
                             </>
-                        ) : loading ? (
-                            <div className="text-center text-primary">
-                                <Spinner />
-                            </div>
                         ) : (
                             <Link
                                 href="/friends/suggestions"

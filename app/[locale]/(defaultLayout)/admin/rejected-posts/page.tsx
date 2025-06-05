@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
 export default function AdminRejectedPost() {
-    const { data, loading, setPage } = useFetch<PostManagementType>(getRejectedPostsService, {
+    const { data, loading, fetchNext } = useFetch<PostManagementType>(getRejectedPostsService, {
         paginated: true,
     });
 
@@ -17,7 +17,7 @@ export default function AdminRejectedPost() {
 
     // Hook for infinite scrolling: Calls `increasePage` when the user scrolls near the bottom
     const { observerTarget } = useInfiniteScroll({
-        callback: () => setPage!((prev) => prev + 1),
+        callback: fetchNext!,
         threshold: 0.5,
         loading,
     });
@@ -54,11 +54,21 @@ export default function AdminRejectedPost() {
     };
 
     return (
-        <div>
-            {posts.map((post) => (
-                <PostManagement postInfo={post} key={`post-${post.postId}`} handleApprovePost={handleApprovePost} />
-            ))}
-            <div ref={observerTarget} className="h-20"></div>
-        </div>
+        <>
+            {posts.length > 0 ? (
+                <div>
+                    {posts.map((post) => (
+                        <PostManagement
+                            postInfo={post}
+                            key={`post-${post.postId}`}
+                            handleApprovePost={handleApprovePost}
+                        />
+                    ))}
+                    <div ref={observerTarget} className="h-20"></div>
+                </div>
+            ) : (
+                <div className="text-center text-primary">Không có bài viết từ chối nào</div>
+            )}
+        </>
     );
 }

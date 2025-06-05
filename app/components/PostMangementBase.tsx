@@ -1,6 +1,6 @@
 import { PostManagementType } from '@/app/dataType';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { cn, getTimeFromISO, padNumber } from '@/lib/utils';
 import { Link } from '@/i18n/routing';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import styles from '@/app/components/Post/Post.module.css';
@@ -15,6 +15,8 @@ export default function PostManagementBase({ postInfo }: { postInfo: PostManagem
     } else if (postInfo.images) {
         visibleImages = [...postInfo.images];
     }
+
+    const { month, day, hours, minutes } = getTimeFromISO(postInfo.createdAt);
 
     return (
         <div className="overflow-auto">
@@ -32,7 +34,9 @@ export default function PostManagementBase({ postInfo }: { postInfo: PostManagem
                     <Link className="text-foreground" href={`/profile/${postInfo.creatorInfo.userId}`}>
                         {postInfo.creatorInfo.lastName} {postInfo.creatorInfo.firstName}
                     </Link>
-                    <div className="text-gray text-xs">6 ngày trước</div>
+                    <div className="text-gray text-xs">
+                        {padNumber(day)}/{padNumber(month)} {padNumber(hours)}:{padNumber(minutes)}
+                    </div>
                 </div>
             </div>
             {postInfo.content && <div className="mt-2 whitespace-pre-line">{postInfo.content}</div>}
