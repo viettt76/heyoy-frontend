@@ -1,10 +1,10 @@
 'use client';
 
-import DeletedPostManagement from '@/app/components/DeletedPostManagement';
-import { PostManagementType } from '@/app/dataType';
+import DeletedPostManagement from '@/components/DeletedPostManagement';
+import { PostManagementType } from '@/types';
 import useFetch from '@/hooks/useFetch';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import { getDeletedPostsService, recoverPostService } from '@/lib/services/postService';
+import { getDeletedPostsService, recoverPostService } from '@/services/postService';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 

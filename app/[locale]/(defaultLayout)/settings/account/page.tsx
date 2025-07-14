@@ -2,14 +2,21 @@
 
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'flowbite-react';
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { changePasswordService, deleteAccountService } from '@/lib/services/authService';
+import { Button } from '@/components/shadcn/button';
+import { Input } from '@/components/shadcn/input';
+import { Label } from '@/components/shadcn/label';
+import { changePasswordService, deleteAccountService } from '@/services/authService';
 import { useRouter } from '@/i18n/routing';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { useAppDispatch } from '@/lib/hooks';
-import { resetInfo } from '@/lib/slices/userSlice';
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/shadcn/dialog';
+import { useAppDispatch } from '@/redux/hooks';
+import { resetInfo } from '@/redux/slices/userSlice';
 import { AxiosError } from 'axios';
 import { toast } from 'sonner';
 

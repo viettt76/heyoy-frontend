@@ -2,7 +2,7 @@
 
 import { useParams, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { getMovieDetailBySlugService } from '@/lib/services/movieService';
+import { getMovieDetailBySlugService } from '@/services/movieService';
 import { MediaPlayer, MediaPlayerInstance, MediaProvider, Poster } from '@vidstack/react';
 import { DefaultVideoLayout, defaultLayoutIcons } from '@vidstack/react/player/layouts/default';
 import { cn } from '@/lib/utils';
@@ -12,12 +12,13 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
+} from '@/components/shadcn/alert-dialog';
+import { Button } from '@/components/shadcn/button';
 import { convertSecondsToTime } from '@/lib/utils';
-import { MovieSource, MovieType } from '@/app/dataType';
-import AutoLink from '@/app/components/AutoLink';
-import SuggestedMovies from '@/app/components/SuggestedMovies';
+import { MovieSource } from '@/types';
+import MovieLink from '@/components/MovieLink';
+import SuggestedMovies from '@/components/SuggestedMovies';
+import { MovieType } from '@/lib/enums';
 
 interface WatchHistory {
     slug: string;
@@ -201,7 +202,7 @@ export default function WatchTVShow() {
                             <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-4 mt-3">
                                 {[...Array(movieInfo?.numberOfEpisodes).keys()].map((i) => {
                                     return (
-                                        <AutoLink
+                                        <MovieLink
                                             href={`/movie/${slug}/${i + 1}`}
                                             className={cn(
                                                 'bg-white text-black h-10 flex justify-center items-center rounded-md',
@@ -210,7 +211,7 @@ export default function WatchTVShow() {
                                             key={`${slug}-episode-${i}`}
                                         >
                                             {i + 1}
-                                        </AutoLink>
+                                        </MovieLink>
                                     );
                                 })}
                             </div>

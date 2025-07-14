@@ -1,9 +1,9 @@
 'use client';
 
-import { MovieItem } from '@/app/components/MovieItem';
-import { MovieCollection } from '@/app/dataType';
+import { MovieItem } from '@/components/MovieItem';
+import { MovieCollection } from '@/types';
 import { useRouter } from '@/i18n/routing';
-import { getMovieListByGenreService } from '@/lib/services/movieService';
+import { getMovieListByGenreService } from '@/services/movieService';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';

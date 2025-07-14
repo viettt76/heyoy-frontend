@@ -12,8 +12,8 @@ import {
 } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import { useEffect, useRef, useState } from 'react';
-import { useSocket } from '@/app/components/SocketProvider';
-import { useAppDispatch } from '@/lib/hooks';
+import { useSocket } from '@/components/SocketProvider';
+import { useAppDispatch } from '@/redux/hooks';
 import type { TrackReference, TrackReferenceOrPlaceholder } from '@livekit/components-core';
 
 function isTrackReference(t: TrackReference | TrackReferenceOrPlaceholder): t is TrackReference {

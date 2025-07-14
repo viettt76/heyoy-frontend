@@ -1,16 +1,16 @@
 'use client';
 
 import { Student } from '@phosphor-icons/react';
-import Post from '@/app/components/Post';
-import { PostInfoType } from '@/app/dataType';
+import Post from '@/components/Post';
+import { PostInfoType } from '@/types';
 import { useEffect, useState } from 'react';
 import { BriefcaseBusiness, Cake, House } from 'lucide-react';
-import { BasicUserInformation } from '@/lib/slices/userSlice';
-import { getPostsByUserIdService } from '@/lib/services/postService';
+import { BasicUserInformation } from '@/redux/slices/userSlice';
+import { getPostsByUserIdService } from '@/services/postService';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { format } from 'date-fns';
 import { useParams } from 'next/navigation';
-import { getUserInfoService } from '@/lib/services/userService';
+import { getUserInfoService } from '@/services/userService';
 
 export default function ProfileOther() {
     const { userId } = useParams<{ userId: string }>();

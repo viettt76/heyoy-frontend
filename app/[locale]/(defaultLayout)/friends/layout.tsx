@@ -1,9 +1,9 @@
 'use client';
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/shadcn/accordion';
 import { Link, usePathname } from '@/i18n/routing';
-import { useAppSelector } from '@/lib/hooks';
-import { selectUserInfo } from '@/lib/slices/userSlice';
+import { useAppSelector } from '@/redux/hooks';
+import { selectUserInfo } from '@/redux/slices/userSlice';
 
 export default function FriendsLayout({ children }) {
     const pathname = usePathname();

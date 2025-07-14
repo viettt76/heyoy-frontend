@@ -1,16 +1,15 @@
 'use client';
 
-import Post from '@/app/components/Post';
-import Sidebar from '@/app/components/Sidebar';
-import SuggestionsPanel from '@/app/components/SuggestionsPanel';
-import { PostInfoType } from '@/app/dataType';
-import WritePost from '@/app/components/WritePost';
-import { getPostsService } from '@/lib/services/postService';
+import Post from '@/components/Post';
+import Sidebar from '@/components/Sidebar';
+import SuggestionsPanel from '@/components/SuggestionsPanel';
+import { PostInfoType } from '@/types';
+import WritePost from '@/components/WritePost';
+import { getPostsService } from '@/services/postService';
 import { Link } from '@/i18n/routing';
 import { useEffect, useState } from 'react';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import { useSocket } from '@/app/components/SocketProvider';
-import { Spinner } from 'flowbite-react';
+import { useSocket } from '@/components/SocketProvider';
 
 export default function Home() {
     const socket = useSocket();

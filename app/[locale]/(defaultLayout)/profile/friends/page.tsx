@@ -1,14 +1,14 @@
 'use client';
 
-import { UserInfoType } from '@/app/dataType';
-import { unfriendService } from '@/lib/services/relationshipService';
+import { UserInfoType } from '@/types';
+import { unfriendService } from '@/services/relationshipService';
 import { UserRoundMinus } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
-import { Dialog, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from '@/components/shadcn/dialog';
 import { Button } from 'flowbite-react';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { removeFriend, selectFriends } from '@/lib/slices/relationshipSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { removeFriend, selectFriends } from '@/redux/slices/relationshipSlice';
 
 export default function ProfileFriends() {
     const dispatch = useAppDispatch();

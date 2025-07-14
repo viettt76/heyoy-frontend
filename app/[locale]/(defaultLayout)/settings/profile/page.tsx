@@ -1,15 +1,15 @@
 'use client';
 
-import { useAppSelector } from '@/lib/hooks';
-import { Gender, selectUserInfo, BasicUserInformation } from '@/lib/slices/userSlice';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import DatePicker from '@/app/components/DatePicker';
+import { useAppSelector } from '@/redux/hooks';
+import { Gender, selectUserInfo, BasicUserInformation } from '@/redux/slices/userSlice';
+import { Input } from '@/components/shadcn/input';
+import { Label } from '@/components/shadcn/label';
+import DatePicker from '@/components/DatePicker';
 import { Radio } from 'flowbite-react';
-import { changeInformationService } from '@/lib/services/userService';
+import { changeInformationService } from '@/services/userService';
 import { toast } from 'sonner';
 import { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/shadcn/button';
 
 const GENDER_OPTIONS = [
     { label: 'Nam', value: Gender.MALE },

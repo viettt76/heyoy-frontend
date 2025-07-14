@@ -1,9 +1,9 @@
 'use client';
 
-import { UserInfoType } from '@/app/dataType';
+import { UserInfoType } from '@/types';
 import useFetch from '@/hooks/useFetch';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import { getSentFriendRequestsService, deleteFriendRequestService } from '@/lib/services/relationshipService';
+import { getSentFriendRequestsService, deleteFriendRequestService } from '@/services/relationshipService';
 import { AxiosError } from 'axios';
 import { X } from 'lucide-react';
 import Image from 'next/image';

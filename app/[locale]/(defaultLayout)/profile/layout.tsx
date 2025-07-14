@@ -1,4 +1,4 @@
-import ProfileHeader from '@/app/components/ProfileHeader';
+import ProfileHeader from '@/components/ProfileHeader';
 
 export default function ProfileLayout({ children }) {
     return (

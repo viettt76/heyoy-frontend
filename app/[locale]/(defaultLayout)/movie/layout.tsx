@@ -4,7 +4,7 @@ import '@vidstack/react/player/styles/base.css';
 import '@vidstack/react/player/styles/default/theme.css';
 import '@vidstack/react/player/styles/default/layouts/video.css';
 import { useEffect } from 'react';
-import { getCountryListService, getGenreListService } from '@/lib/services/movieService';
+import { getCountryListService, getGenreListService } from '@/services/movieService';
 import { useSearchParams } from 'next/navigation';
 
 export default function MoviesLayout({ children }) {

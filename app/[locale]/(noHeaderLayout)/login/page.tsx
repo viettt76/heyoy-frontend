@@ -5,10 +5,10 @@ import Image from 'next/image';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { Button } from '@/components/shadcn/button';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/shadcn/form';
 import { Link, useRouter } from '@/i18n/routing';
-import { loginService, recoverAccountService } from '@/lib/services/authService';
+import { loginService, recoverAccountService } from '@/services/authService';
 import { AxiosError } from 'axios';
 import { useState } from 'react';
 import {
@@ -19,7 +19,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from '@/components/ui/dialog';
+} from '@/components/shadcn/dialog';
 
 const formSchema = z.object({
     username: z.string().min(1, {

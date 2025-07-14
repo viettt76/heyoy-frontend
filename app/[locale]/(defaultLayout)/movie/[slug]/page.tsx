@@ -2,7 +2,7 @@
 
 import { useParams, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
-import { getMovieDetailBySlugService } from '@/lib/services/movieService';
+import { getMovieDetailBySlugService } from '@/services/movieService';
 import { MediaPlayer, MediaPlayerInstance, MediaProvider, Poster } from '@vidstack/react';
 import { DefaultVideoLayout, defaultLayoutIcons } from '@vidstack/react/player/layouts/default';
 import {
@@ -11,11 +11,12 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
+} from '@/components/shadcn/alert-dialog';
+import { Button } from '@/components/shadcn/button';
 import { convertSecondsToTime } from '@/lib/utils';
-import { MovieSource, MovieType } from '@/app/dataType';
-import SuggestedMovies from '@/app/components/SuggestedMovies';
+import { MovieSource } from '@/types';
+import SuggestedMovies from '@/components/SuggestedMovies';
+import { MovieType } from '@/lib/enums';
 
 interface WatchHistory {
     slug: string;

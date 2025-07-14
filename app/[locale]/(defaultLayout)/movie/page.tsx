@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import MovieRow from '@/app/components/MovieRow';
+import MovieRow from '@/components/MovieRow';
 import {
     getGenreListService,
     getMovieListByGenreService,
     getNewlyUpdatedMovieListService,
-} from '@/lib/services/movieService';
-import { BaseMovieData, MovieCollection } from '@/app/dataType';
+} from '@/services/movieService';
+import { BaseMovieData, MovieCollection } from '@/types';
 import { useSearchParams } from 'next/navigation';
 import { HOME_GENRE_DISPLAY_LIMIT } from '@/lib/constants';
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { getUserImagesService } from '@/lib/services/userService';
+import { getUserImagesService } from '@/services/userService';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';

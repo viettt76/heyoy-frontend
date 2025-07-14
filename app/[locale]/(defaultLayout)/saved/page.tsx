@@ -1,10 +1,10 @@
 'use client';
 
-import Post from '@/app/components/Post';
-import { PostInfoType } from '@/app/dataType';
+import Post from '@/components/Post';
+import { PostInfoType } from '@/types';
 import useFetch from '@/hooks/useFetch';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import { getBookmarkPostsService } from '@/lib/services/postService';
+import { getBookmarkPostsService } from '@/services/postService';
 import { Spinner } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 

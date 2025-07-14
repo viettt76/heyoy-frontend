@@ -1,8 +1,8 @@
 'use client';
 
-import { MovieItem } from '@/app/components/MovieItem';
-import { BaseMovieData } from '@/app/dataType';
-import { searchMovieService } from '@/lib/services/movieService';
+import { MovieItem } from '@/components/MovieItem';
+import { BaseMovieData } from '@/types';
+import { searchMovieService } from '@/services/movieService';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';

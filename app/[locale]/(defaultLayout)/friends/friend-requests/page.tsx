@@ -1,16 +1,16 @@
 'use client';
 
-import { useSocket } from '@/app/components/SocketProvider';
-import { UserInfoType } from '@/app/dataType';
+import { useSocket } from '@/components/SocketProvider';
+import { UserInfoType } from '@/types';
 import useFetch from '@/hooks/useFetch';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import { useAppDispatch } from '@/lib/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 import {
     acceptFriendRequestService,
     getFriendRequestsService,
     deleteFriendRequestService,
-} from '@/lib/services/relationshipService';
-import { minusFriendRequestCount } from '@/lib/slices/userSlice';
+} from '@/services/relationshipService';
+import { minusFriendRequestCount } from '@/redux/slices/userSlice';
 import { AxiosError } from 'axios';
 import { UserCheck, X } from 'lucide-react';
 import Image from 'next/image';

@@ -1,14 +1,14 @@
 'use client';
 
-import { UserInfoType } from '@/app/dataType';
-import { getFriendsService, sendFriendRequestService } from '@/lib/services/relationshipService';
+import { UserInfoType } from '@/types';
+import { getFriendsService, sendFriendRequestService } from '@/services/relationshipService';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { UserRoundPlus } from 'lucide-react';
-import { useAppSelector } from '@/lib/hooks';
-import { selectFriends } from '@/lib/slices/relationshipSlice';
-import { selectUserInfo } from '@/lib/slices/userSlice';
+import { useAppSelector } from '@/redux/hooks';
+import { selectFriends } from '@/redux/slices/relationshipSlice';
+import { selectUserInfo } from '@/redux/slices/userSlice';
 
 export default function ProfileOtherFriends() {
     const { userId } = useParams<{ userId: string }>();

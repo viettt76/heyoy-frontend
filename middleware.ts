@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
 import { routing } from './i18n/routing';
-import { Role } from './lib/constants';
+import { Role } from './lib/enums';
 import { jwtVerify } from 'jose';
 
 const intlMiddleware = createMiddleware(routing);

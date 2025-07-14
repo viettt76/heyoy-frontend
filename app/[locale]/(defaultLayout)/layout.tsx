@@ -1,12 +1,12 @@
 'use client';
 
-import Header from '@/app/components/Header';
-import AppProvider from '@/app/components/AppProvider';
-import ScrollToTop from '@/app/components/ScrollToTop';
-import SocketProvider from '@/app/components/SocketProvider';
-import ConversationBubbles from '@/app/components/ConversationBubbles';
+import Header from '@/components/Header';
+import AppProvider from '@/components/AppProvider';
+import ScrollToTop from '@/components/ScrollToTop';
+import SocketProvider from '@/components/SocketProvider';
+import ConversationBubbles from '@/components/ConversationBubbles';
 import { usePathname } from '@/i18n/routing';
-import MovieHeader from '@/app/components/MovieHeader';
+import MovieHeader from '@/components/MovieHeader';
 
 export default function DefaultLayout({
     children,

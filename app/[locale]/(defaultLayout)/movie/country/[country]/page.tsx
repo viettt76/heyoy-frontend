@@ -1,8 +1,8 @@
 'use client';
 
-import { MovieItem } from '@/app/components/MovieItem';
-import { MovieCollection } from '@/app/dataType';
-import { getMovieListByCountryService } from '@/lib/services/movieService';
+import { MovieItem } from '@/components/MovieItem';
+import { MovieCollection } from '@/types';
+import { getMovieListByCountryService } from '@/services/movieService';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useRouter } from '@/i18n/routing';

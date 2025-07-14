@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import ThemeProviderWrapper from '@/app/components/ThemeProviderWrapper';
+import ThemeProviderWrapper from '@/components/ThemeProviderWrapper';
 import { getMessages } from 'next-intl/server';
 import { Locale } from '@/i18n/routing';
 import { NextIntlClientProvider } from 'next-intl';
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from '@/components/shadcn/sonner';
 
 import 'react-photo-view/dist/react-photo-view.css';
 import 'draft-js/dist/Draft.css';

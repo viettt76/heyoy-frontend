@@ -1,9 +1,9 @@
 'use client';
 
-import { UserInfoType } from '@/app/dataType';
+import { UserInfoType } from '@/types';
 import useFetch from '@/hooks/useFetch';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import { getSuggestionsService, sendFriendRequestService } from '@/lib/services/relationshipService';
+import { getSuggestionsService, sendFriendRequestService } from '@/services/relationshipService';
 import { UserRoundPlus } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';

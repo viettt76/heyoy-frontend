@@ -1,10 +1,10 @@
 'use client';
 
-import PostManagement from '@/app/components/PostManagement';
-import { PostManagementType } from '@/app/dataType';
+import PostManagement from '@/components/PostManagement';
+import { PostManagementType } from '@/types';
 import useFetch from '@/hooks/useFetch';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import { approvePostService, getRejectedPostsService } from '@/lib/services/adminService';
+import { approvePostService, getRejectedPostsService } from '@/services/adminService';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 

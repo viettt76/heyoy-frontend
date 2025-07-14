@@ -5,10 +5,10 @@ import Image from 'next/image';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { Button } from '@/components/shadcn/button';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/shadcn/form';
 import { useState } from 'react';
-import { signUpService } from '@/lib/services/authService';
+import { signUpService } from '@/services/authService';
 import { AxiosError } from 'axios';
 import { Link, useRouter } from '@/i18n/routing';
 

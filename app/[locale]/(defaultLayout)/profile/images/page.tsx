@@ -1,8 +1,8 @@
 'use client';
 
-import { useAppSelector } from '@/lib/hooks';
-import { getUserImagesService } from '@/lib/services/userService';
-import { selectUserInfo } from '@/lib/slices/userSlice';
+import { useAppSelector } from '@/redux/hooks';
+import { getUserImagesService } from '@/services/userService';
+import { selectUserInfo } from '@/redux/slices/userSlice';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { PhotoProvider, PhotoView } from 'react-photo-view';

@@ -1,17 +1,17 @@
 'use client';
 
 import { Student } from '@phosphor-icons/react';
-import Post from '@/app/components/Post';
-import { PostInfoType } from '@/app/dataType';
+import Post from '@/components/Post';
+import { PostInfoType } from '@/types';
 import { useEffect, useState } from 'react';
 import { BriefcaseBusiness, Cake, House } from 'lucide-react';
-import WritePost from '@/app/components/WritePost';
-import { useAppSelector } from '@/lib/hooks';
-import { selectUserInfo } from '@/lib/slices/userSlice';
-import { getPostsByUserIdService } from '@/lib/services/postService';
+import WritePost from '@/components/WritePost';
+import { useAppSelector } from '@/redux/hooks';
+import { selectUserInfo } from '@/redux/slices/userSlice';
+import { getPostsByUserIdService } from '@/services/postService';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { format } from 'date-fns';
-import { useSocket } from '@/app/components/SocketProvider';
+import { useSocket } from '@/components/SocketProvider';
 
 export default function Profile() {
     const userInfo = useAppSelector(selectUserInfo);

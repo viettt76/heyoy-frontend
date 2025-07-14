@@ -1,16 +1,16 @@
 'use client';
 
-import { UserInfoType } from '@/app/dataType';
+import { UserInfoType } from '@/types';
 import { Link } from '@/i18n/routing';
-import { useAppDispatch } from '@/lib/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 import {
     acceptFriendRequestService,
     deleteFriendRequestService,
     sendFriendRequestService,
-} from '@/lib/services/relationshipService';
-import { searchService } from '@/lib/services/userService';
-import { addFriends } from '@/lib/slices/relationshipSlice';
-import { minusFriendRequestCount } from '@/lib/slices/userSlice';
+} from '@/services/relationshipService';
+import { searchService } from '@/services/userService';
+import { addFriends } from '@/redux/slices/relationshipSlice';
+import { minusFriendRequestCount } from '@/redux/slices/userSlice';
 import { AxiosError } from 'axios';
 import { Reply, UserCheck, UserRoundPlus, X } from 'lucide-react';
 import Image from 'next/image';
@@ -33,8 +33,8 @@ export default function SearchResult() {
     useEffect(() => {
         (async () => {
             try {
-                if (keyword) {
-                    const { data } = await searchService(keyword);
+                if (keyword.trim()) {
+                    const { data } = await searchService(keyword.trim());
                     setSearchResult(data);
                 } else {
                     setSearchResult([]);

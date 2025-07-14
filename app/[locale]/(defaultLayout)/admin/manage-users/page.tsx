@@ -1,22 +1,30 @@
 'use client';
 
-import { createUserService, getUsersService, lockUserService, unlockUserService } from '@/lib/services/adminService';
-import { Role } from '@/lib/slices/userSlice';
+import { createUserService, getUsersService, lockUserService, unlockUserService } from '@/services/adminService';
+import { Role } from '@/redux/slices/userSlice';
 import { Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from 'flowbite-react';
 import { Pagination } from 'flowbite-react';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Checkbox } from '@/components/shadcn/checkbox';
 import { Lock, Unlock } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Button } from '@/components/shadcn/button';
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/shadcn/dialog';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/shadcn/form';
 import { AxiosError } from 'axios';
 import { UserGear, LockKey, User, UserCircle } from '@phosphor-icons/react';
 import { toast } from 'sonner';
 import useFetch from '@/hooks/useFetch';
+import { Input } from '@/components/shadcn/input';
 
 const formSchema = z
     .object({
@@ -150,15 +158,13 @@ export default function ManageUsers() {
                 });
             }
             console.error(error);
-        } finally {
         }
     };
 
     return (
         <div className="overflow-x-auto">
             <div className="flex justify-between gap-x-20">
-                <input
-                    className="outline-none px-3 py-1 rounded-2xl flex-1"
+                <Input
                     value={keyword}
                     placeholder="Tìm kiếm tên người dùng"
                     onChange={(e) => setKeyword(e.target.value)}

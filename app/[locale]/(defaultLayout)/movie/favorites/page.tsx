@@ -1,9 +1,9 @@
 'use client';
 
-import { MovieItem } from '@/app/components/MovieItem';
-import { BaseMovieData } from '@/app/dataType';
+import { MovieItem } from '@/components/MovieItem';
+import { BaseMovieData } from '@/types';
 import useMoviesPerSlide from '@/hooks/useMoviesPerSlide';
-import { getFavoriteMoviesService, removeFavoriteMovieService, Source } from '@/lib/services/movieService';
+import { getFavoriteMoviesService, removeFavoriteMovieService, Source } from '@/services/movieService';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
